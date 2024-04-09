@@ -79,7 +79,71 @@ fun MyApp() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(navController: NavHostController) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var result by remember { mutableStateOf("") }
 
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Sign In") },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .padding(top = 60.dp)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text("Email") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text("Password") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = {
+                    handleSignIn(email, password, navController) { success ->
+                        if (success) {
+                            navController.navigate("Home")
+                        } else {
+                            result = "Помилка авторизації"
+                        }
+                    }
+                }),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = {
+                handleSignIn(email, password, navController) { success ->
+                    if (success) {
+                        result = "Авторизація пройшла успішно"
+                    } else {
+                        result = "Помилка авторизації"
+                    }
+                }
+            }) {
+                Text("Sign In")
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = result)
+            Spacer(modifier = Modifier.height(16.dp))
+            TextButton(onClick = { navController.navigate("SignUp") }) {
+                Text("Sign Up")
+            }
+        }
+    }
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
