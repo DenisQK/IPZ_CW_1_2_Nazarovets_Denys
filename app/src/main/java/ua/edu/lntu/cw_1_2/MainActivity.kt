@@ -147,7 +147,13 @@ fun SignInScreen(navController: NavHostController) {
 }
 
 fun handleSignIn(email: String, password: String, navController: NavHostController, callback: (Boolean) -> Unit) {
-
+    if (email.isNotEmpty() && password.isNotEmpty()) {
+        // Ми просто симулюємо успішний вхід для цілей демонстрації
+        callback(true)
+    } else {
+        // Ми просто симулюємо помилку входу для цілей демонстрації
+        callback(false)
+    }
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
