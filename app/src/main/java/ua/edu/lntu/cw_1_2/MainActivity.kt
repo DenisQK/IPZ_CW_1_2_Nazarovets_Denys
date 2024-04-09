@@ -234,3 +234,7 @@ fun SignUpScreen(navController: NavHostController) {
         }
     }
 }
+
+fun handleSignUp(email: String, password: String, navController: NavHostController, callback: (Boolean) -> Unit) {
+
+}
