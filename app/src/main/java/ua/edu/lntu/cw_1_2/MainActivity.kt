@@ -66,10 +66,25 @@ fun MyApp() {
 
     NavHost(navController, startDestination = "SignIn") {
         composable("SignIn") {
+            SignInScreen(navController)
         }
         composable("SignUp") {
+            SignUpScreen(navController)
         }
     }
 }
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SignInScreen(navController: NavHostController) {
+
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SignUpScreen(navController: NavHostController) {
+
+}
