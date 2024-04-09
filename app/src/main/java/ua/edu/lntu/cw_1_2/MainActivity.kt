@@ -146,6 +146,10 @@ fun SignInScreen(navController: NavHostController) {
     }
 }
 
+fun handleSignIn(email: String, password: String, navController: NavHostController, callback: (Boolean) -> Unit) {
+
+}
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
