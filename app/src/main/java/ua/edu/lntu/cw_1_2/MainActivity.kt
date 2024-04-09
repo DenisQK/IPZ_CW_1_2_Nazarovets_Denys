@@ -150,5 +150,77 @@ fun SignInScreen(navController: NavHostController) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(navController: NavHostController) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var result by remember { mutableStateOf("") }
 
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Sign Up") },
+                modifier = Modifier.fillMaxWidth(),
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate("SignIn") }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                }
+            )
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .padding(top = 60.dp)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text("Email") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text("Password") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = {
+                    handleSignUp(email, password, navController) { success ->
+                        if (success) {
+                            result = "Успішна реєстрація"
+                        } else {
+                            result = "Помилка реєстрації"
+                        }
+                    }
+                }),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = {
+                handleSignUp(email, password, navController) { success ->
+                    if (success) {
+                        result = "Успішна реєстрація"
+                    } else {
+                        result = "Помилка реєстрації"
+                    }
+                }
+            }) {
+                Text("Sign Up")
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = result)
+            Spacer(modifier = Modifier.height(16.dp))
+            TextButton(onClick = { navController.navigate("SignIn") }) {
+                Text("Sign In")
+            }
+        }
+    }
 }
